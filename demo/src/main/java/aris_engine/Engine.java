@@ -6,25 +6,17 @@ import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
 import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
 import static org.lwjgl.glfw.GLFW.glfwInit;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearColor;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-
-import aris_engine.core.Transform;
-import aris_engine.rendering.Material;
+import aris_engine.input.Input;
 import aris_engine.rendering.Renderer;
-import aris_engine.rendering.Shader;
-import aris_engine.rendering.Texture;
 import aris_engine.rendering.Window;
-import aris_engine.utils.DefaultShaders;
-import aris_engine.utils.Primitives;
+import aris_engine.utils.ArisTime;
 
-public class Engine {
-    Window window;
-    Renderer renderer;
+public abstract class Engine {
+    protected Window window;
+    protected Renderer renderer;
     public static class Params {
         int width = 1280, height = 720;
     }
@@ -48,36 +40,21 @@ public class Engine {
     }
 
     public void Run(){
+        ArisTime.Init();
+        Input.Init(window.window);
         Start();
         while (window.eventQueue.isEmpty() || window.eventQueue.peek()!=Window.Event.ShouldClose) {
+            ArisTime.ProbeStart();
             Update();
+            window.Update();
+            ArisTime.ProbeEnd();
         }
         Shutdown();
     }
 
-    public void Start(){
-        glClearColor(0.7f,0.3f, 0, 1);
-        testTransform = new Transform();
-        temp = new Shader(DefaultShaders.defaultFrag, DefaultShaders.defaultVert);
-        Texture[] texs = {};
-        testMaterial = new Material(temp,texs);
-    }
-    Shader temp ;
-    Transform testTransform;
-    Material testMaterial;
-    public void Update(){
-        glClear(GL_COLOR_BUFFER_BIT);
-        renderer.Render(Primitives.square,testTransform ,testMaterial);
-        //System.out.println("after" + GL41.glGetError());
-        window.Update();
-    }
-    
+    public abstract void Start();
+    public abstract void Update();
     public void Shutdown(){
 
-    }
-
-    public static Engine defaultInit(){
-        Params params = new Params();
-        return new Engine(params);
     }
 }

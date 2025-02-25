@@ -32,17 +32,4 @@ public class Mesh {
     public void Unbind(){
         GL41.glBindVertexArray(0);
     }
-    public static Mesh GetSquare(){
-        double[] verts = {
-                -1,-1,0,0,
-                -1,1,0,1,
-                1,-1,1,0,
-                1,1,1,1,
-        };
-        int[] idices = {
-                0,1,2,
-                0,2,3
-        };
-        return new Mesh(verts,idices);
-    }
 }

@@ -17,6 +17,7 @@ public class Renderer {
         public float fov;
     }
     Params data ;
+    float[] projection; 
     public Renderer(Params params) {
         data = params;
     }

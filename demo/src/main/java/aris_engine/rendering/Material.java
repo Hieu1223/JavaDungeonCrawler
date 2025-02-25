@@ -1,7 +1,6 @@
 package aris_engine.rendering;
 
 import aris_engine.core.Transform;
-
 public class Material {
     Shader shader;
     Texture[] textures = {};
@@ -15,6 +14,7 @@ public class Material {
         shader.SetMat2("aScale",transform.GetScaleMatrix());
         shader.SetVec2("entityPos", transform.GetPositionVector());
         for(int i = 0 ; i < textures.length; i++){
+            
             textures[i].Bind();
         }
     }

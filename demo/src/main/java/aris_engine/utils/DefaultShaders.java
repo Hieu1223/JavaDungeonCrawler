@@ -1,5 +1,9 @@
 package aris_engine.utils;
 
+import aris_engine.rendering.Material;
+import aris_engine.rendering.Shader;
+import aris_engine.rendering.Texture;
+
 public class DefaultShaders {
     public static String defaultVert = "#version 410 \n" +
             "layout (location = 0) in vec2 aPos; // the position variable has attribute position 0\n" +
@@ -22,4 +26,7 @@ public class DefaultShaders {
             "{\n" +
             "    FragColor = vertexColor;\n" +
             "} ";
+        public static Texture[] empty = {};
+        public static Shader defaultShader = new Shader(defaultFrag,defaultVert);
+        public static Material defaultMaterial = new Material(defaultShader,empty );
 }
