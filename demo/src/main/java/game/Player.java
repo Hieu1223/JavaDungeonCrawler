@@ -12,6 +12,7 @@ import aris_engine.utils.ArisTime;
 public class Player {
     public Transform transform = new Transform();
     public double speed = 2f;
+    public double rotSpeed = 10f;
     public void Start(){
         transform.PosX = 0.5f;
         transform.ScaleX = 0.1f;
@@ -22,13 +23,13 @@ public class Player {
             transform.PosY+= speed * ArisTime.deltaTime();
         }
         if(Input.GetKey(GLFW_KEY_S)){
-            transform.PosY-= speed * ArisTime.deltaTime();
+            //transform.PosY-= speed * ArisTime.deltaTime();
         }
         if(Input.GetKey(GLFW_KEY_A)){
-            transform.PosX-= speed * ArisTime.deltaTime();
+            transform.ZRotation-= rotSpeed * ArisTime.deltaTime();
         }
         if(Input.GetKey(GLFW_KEY_D)){
-            transform.PosX+= speed * ArisTime.deltaTime();
+            transform.ZRotation+= rotSpeed * ArisTime.deltaTime();
         }
     }
 }
