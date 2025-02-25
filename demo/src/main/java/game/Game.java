@@ -1,5 +1,5 @@
 package game;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL41.*;
 
 import org.lwjgl.opengl.GL41;
 
@@ -14,6 +14,7 @@ public class Game extends Engine {
     
     @Override
     public void Start() {
+        glClearColor(0.2f, 0.7f, 0.4f, 1f);
         player.Start();
     }
 

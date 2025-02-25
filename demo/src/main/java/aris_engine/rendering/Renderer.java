@@ -4,8 +4,8 @@ import org.lwjgl.opengl.GL41;
 
 import aris_engine.core.Transform;
 
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL11.GL_UNSIGNED_INT;
+import static org.lwjgl.opengl.GL41.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL41.GL_UNSIGNED_INT;
 
 
 public class Renderer {
@@ -22,8 +22,8 @@ public class Renderer {
         data = params;
     }
     public void Render(Mesh mesh,Transform transform,Material material) {
-        mesh.Bind();
         material.Bind(transform);
+        mesh.Bind();
         GL41.glDrawElements(GL_TRIANGLES,mesh.indices.length,GL_UNSIGNED_INT,0);
         //System.out.println(GL41.glGetError());
         mesh.Unbind();
