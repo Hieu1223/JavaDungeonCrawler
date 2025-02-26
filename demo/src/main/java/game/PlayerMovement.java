@@ -4,18 +4,22 @@ import static org.lwjgl.glfw.GLFW.*;
 
 import org.joml.Vector3f;
 
-import aris_engine.core.Transform;
 import aris_engine.input.Input;
+import aris_engine.scene.Component;
 import aris_engine.utils.ArisTime;
 
-public class Player {
-    public Transform transform = new Transform();
+public class PlayerMovement extends Component {
     public float speed = 2f;
     public float rotSpeed = 50f;
-    public void Start(){
+    @Override
+    public void Start() {
         transform.localPos = new Vector3f(0,0,-10);
+
     }
-    public void Update(){
+
+    @Override
+    public void Update() {
+        
         if(Input.GetKey(GLFW_KEY_W)){
             transform.localPos.add(0, speed * (float)ArisTime.deltaTime(),0);
         }
@@ -31,7 +35,6 @@ public class Player {
         //transform.localRot.rotateLocalY(-speed * (float)ArisTime.deltaTime());
         //double currentTime = ArisTime.GetUptime();
         ///System.out.println(Math.sin(currentTime/20));
-        //transform.localScale.set(1+ Math.sin(currentTime)/4);
-        transform.Update();
     }
+
 }

@@ -16,7 +16,6 @@ import aris_engine.utils.ArisTime;
 
 public abstract class Engine {
     protected Window window;
-    protected Renderer renderer;
     public static class Params {
         int width = 1280, height = 720;
     }
@@ -31,12 +30,9 @@ public abstract class Engine {
         window = new Window(params.height, params.width);
         GL.createCapabilities();
         Renderer.Params rendererParams = new Renderer.Params();
-        rendererParams.scrWidth = params.width;
-        rendererParams.scrHeight = params.height;
         rendererParams.fov = 60;
         rendererParams.farPlane = 1000;
         rendererParams.nearPlane = 0.1f;
-        renderer = new Renderer(rendererParams);
     }
 
     public void Run(){
