@@ -1,8 +1,6 @@
 package aris_engine.rendering;
 
 import org.joml.Matrix4f;
-
-import aris_engine.core.Transform;
 import aris_engine.scene.Component;
 
 public class Camera extends Component{
@@ -19,19 +17,21 @@ public class Camera extends Component{
     public Matrix4f projectionMat;
     public Matrix4f viewMat;
     public Camera(Params params){
-        transform = new Transform();
         projectionMat = new Matrix4f().perspective((float)Math.toRadians(params.fov), params.aspect, params.zNear, params.zFar);      
         if(main == null)
             main = this; 
+        else
+            throw new Error("More than one Camera instance");
     }
     public void SetMain(){
         main = this;
     }
     @Override
     public void Start() {
+        viewMat = new Matrix4f().invert(transform.transformMat);
     }
     @Override
     public void Update() {
-        viewMat = new Matrix4f().invert(transform.transformMat);
+        viewMat = new Matrix4f(transform.transformMat).invert();
     }
 }

@@ -29,7 +29,9 @@ public class Transform {
         transformMat =  transformMat.rotate(localRot);
         transformMat = transformMat.scale(localScale);
         if(parent!= null){
-            parent.transformMat.mul(transformMat, transformMat);
+            Matrix4f newMat = new Matrix4f();
+            parent.transformMat.mul(transformMat, newMat);
+            transformMat = newMat;
         }
     }
 }

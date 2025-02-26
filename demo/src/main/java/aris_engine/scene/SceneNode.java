@@ -16,10 +16,10 @@ public class SceneNode {
     }
     public SceneNode NewChild(Transform localTransform, Entity comp){
         SceneNode newNode = new SceneNode();
-        this.go.transform.children.add(localTransform);
+        go.transform.children.add(localTransform);
         newNode.parent = this;
         newNode.go.transform = localTransform;
-        newNode.go.transform.parent = this.go.transform;
+        localTransform.parent = this.go.transform;
         newNode.go.comps = comp;
         localTransform.gameObject = newNode.go;
         return newNode;
@@ -33,10 +33,10 @@ public class SceneNode {
         return this;
     }
     public SceneNode WithComponent(Component comp){
-        this.go.comps.add(comp);
+        //this.go.comps.add(comp);
         this.go.components.add(comp);
         comp.gameObject = this.go;
-        comp.transform = this.go.transform;
+        comp.transform = go.transform;
         return this;
     }
     public SceneNode Up(){
