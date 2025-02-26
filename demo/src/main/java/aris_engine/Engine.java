@@ -1,11 +1,9 @@
 package aris_engine;
 
-import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
-import static org.lwjgl.glfw.GLFW.GLFW_RESIZABLE;
-import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
-import static org.lwjgl.glfw.GLFW.glfwDefaultWindowHints;
-import static org.lwjgl.glfw.GLFW.glfwInit;
-import static org.lwjgl.glfw.GLFW.glfwWindowHint;
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.glfw.GLFW.*;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -29,6 +27,7 @@ public abstract class Engine {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
         window = new Window(params.height, params.width);
         GL.createCapabilities();
+        glEnable(GL_DEPTH_TEST);
         Renderer.Params rendererParams = new Renderer.Params();
         rendererParams.fov = 60;
         rendererParams.farPlane = 1000;

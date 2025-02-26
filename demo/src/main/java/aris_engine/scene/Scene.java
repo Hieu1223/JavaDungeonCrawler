@@ -47,9 +47,12 @@ public class Scene {
     }
     void UpdateHelper(Transform node){
         for(Transform child: node.children){
+            if(!child.gameObject.active)
+                continue;
             child.Update();
             for(Component comp: child.gameObject.components)
-                comp.Update();
+                if(comp.active)
+                    comp.Update();
             UpdateHelper(child);
         }
     }

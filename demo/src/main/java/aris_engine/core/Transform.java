@@ -15,10 +15,21 @@ public class Transform {
     public Transform parent;
     public GameObject gameObject;
     public List<Transform> children = new LinkedList<Transform>();
+    public Transform(){
+
+    }
+    public Transform(Vector3f pos,Quaternionf rot, Vector3f scale){
+        localPos = pos;
+        localRot = rot;
+        localScale = scale;
+    }
     public void Update(){
-        transformMat = parent == null? new Matrix4f().identity() : new Matrix4f(parent.transformMat);
+        transformMat = new Matrix4f().identity();
         transformMat = transformMat.translate(localPos);
         transformMat =  transformMat.rotate(localRot);
         transformMat = transformMat.scale(localScale);
+        if(parent!= null){
+            parent.transformMat.mul(transformMat, transformMat);
+        }
     }
 }

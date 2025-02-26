@@ -3,8 +3,9 @@ package aris_engine.rendering;
 import org.joml.Matrix4f;
 
 import aris_engine.core.Transform;
+import aris_engine.scene.Component;
 
-public class Camera {
+public class Camera extends Component{
     public static class Params{
         public float fov = 60;
         public float aspect;
@@ -15,8 +16,8 @@ public class Camera {
         }
     }
     public static Camera main;
-    public Transform transform;
     public Matrix4f projectionMat;
+    public Matrix4f viewMat;
     public Camera(Params params){
         transform = new Transform();
         projectionMat = new Matrix4f().perspective((float)Math.toRadians(params.fov), params.aspect, params.zNear, params.zFar);      
@@ -25,5 +26,12 @@ public class Camera {
     }
     public void SetMain(){
         main = this;
+    }
+    @Override
+    public void Start() {
+    }
+    @Override
+    public void Update() {
+        viewMat = new Matrix4f().invert(transform.transformMat);
     }
 }

@@ -14,5 +14,6 @@ public class GameObject {
     public Transform transform;
     public Renderer renderer;
     public Mesh meshFilter;
+    public boolean active = true;
     List<Component> components = new LinkedList<>();
 }
