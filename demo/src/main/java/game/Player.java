@@ -28,10 +28,10 @@ public class Player {
         if(Input.GetKey(GLFW_KEY_D)){
             transform.localPos.add( speed * (float)ArisTime.deltaTime(),0,0);
         }
-        transform.localRot.rotateLocalY(-speed * (float)ArisTime.deltaTime());
-        double currentTime = ArisTime.GetUptime();
+        //transform.localRot.rotateLocalY(-speed * (float)ArisTime.deltaTime());
+        //double currentTime = ArisTime.GetUptime();
         ///System.out.println(Math.sin(currentTime/20));
-        transform.localScale.set(1+ Math.sin(currentTime)/4);
+        //transform.localScale.set(1+ Math.sin(currentTime)/4);
         transform.Update();
     }
 }
