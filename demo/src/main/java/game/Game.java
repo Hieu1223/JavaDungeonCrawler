@@ -4,10 +4,12 @@ import static org.lwjgl.opengl.GL41.*;
 import org.lwjgl.opengl.GL41;
 
 import aris_engine.Engine;
+import aris_engine.rendering.Camera;
 import aris_engine.utils.DefaultShaders;
 import aris_engine.utils.Primitives;
 public class Game extends Engine {
     Player player = new Player();
+    Camera cam = new Camera(new Camera.Params());
     public Game() {
         super(new Params());
     }

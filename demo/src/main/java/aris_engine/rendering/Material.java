@@ -14,9 +14,12 @@ public class Material {
     }
     public void Bind(Transform transform){
         shader.Bind();
-        shader.SetMat2("aRot",transform.GetRotationMatrix());
-        shader.SetMat2("aScale",transform.GetScaleMatrix());
-        shader.SetVec2("entityPos", transform.GetPositionVector());
+        float[] modelMat = new float[16];
+        float[] projectionMat = new float[16];
+        transform.transformMat.get(modelMat);
+        Camera.main.projectionMat.get(projectionMat);
+        shader.SetMat4("mModel", modelMat);
+        shader.SetMat4("mProjection", projectionMat);
         for(int i = 0 ; i < textures.length; i++){
             glActiveTexture(GL_TEXTURE0);
             textures[i].Bind();

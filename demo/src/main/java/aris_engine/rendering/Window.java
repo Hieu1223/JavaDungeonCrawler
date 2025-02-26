@@ -16,6 +16,7 @@ public class Window {
         ShouldClose
     }
 
+    public static Window main;
     public Queue<Event> eventQueue = new LinkedList<Event>();
 
     public long window;
@@ -23,8 +24,9 @@ public class Window {
     public Window(int height, int width){
         this.height = height;
         this.width = width;
+        if(main == null)
+            main = this;
         window = glfwCreateWindow(width, height, "Game window",0,0);
-
         try ( MemoryStack stack = stackPush() ) {
 			IntBuffer pWidth = stack.mallocInt(1); // int*
 			IntBuffer pHeight = stack.mallocInt(1); // int*

@@ -1,29 +1,22 @@
 package aris_engine.core;
 
-import java.lang.Math;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.joml.*;
 public class Transform {
-    public float ZRotation;
-    public float PosX, PosY;
-    public float ScaleX = 1, ScaleY =1;
-    public float[] GetRotationMatrix(){
-        float cosa = (float)Math.cos(Math.toRadians((float)ZRotation));
-        float sina = (float)Math.sin(Math.toRadians((float)ZRotation));
-        float[] matrix = {
-                cosa, -sina,
-                sina, cosa,
-        };
-        return matrix;
-    }
-    public float[] GetScaleMatrix(){
-        float[] mat = {
-                ScaleX,0,
-                0,ScaleY
-        };
-        return mat;
-    }
-    public float[] GetPositionVector(){
-        float[] vec = {PosX, PosY};
-        return vec;
+    public Quaternionf localRot = new Quaternionf().identity();
+    public Vector3f localPos = new Vector3f().zero();
+    public Vector3f localScale= new Vector3f(1,1,1);
+    public Matrix4f transformMat = new Matrix4f().identity();
+    public Transform parent;
+    public List<Transform> children = new LinkedList<Transform>();
+    public void Update(){
+        transformMat = parent == null? new Matrix4f().identity() : parent.transformMat;
+        transformMat = transformMat.translate(localPos);
+        transformMat =  transformMat.rotate(localRot);
+        transformMat = transformMat.scale(localScale);
+        for(Transform child : children)
+            child.Update();
     }
 }

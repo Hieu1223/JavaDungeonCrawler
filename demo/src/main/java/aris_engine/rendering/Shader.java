@@ -1,10 +1,18 @@
 package aris_engine.rendering;
 
+
 import org.lwjgl.opengl.GL41;
+
+import aris_engine.utils.FileUtils;
 
 public class Shader {
     int programId;
-    public Shader(String fragSource, String vertSource) {
+
+    
+
+    public Shader(String fragPath, String vertPath) {
+        String vertSource = FileUtils.readFile(vertPath);
+        String fragSource = FileUtils.readFile(fragPath);
         int vertId = createShader(vertSource,GL41.GL_VERTEX_SHADER);
         int fragId = createShader(fragSource,GL41.GL_FRAGMENT_SHADER);
         programId = GL41.glCreateProgram();
@@ -52,5 +60,17 @@ public class Shader {
     }
     public void SetVec2(String name, float[] value){
         GL41.glUniform2fv(GL41.glGetUniformLocation(programId, name), value);
+    }
+    public void SetMat3(String name, float[] value){
+        GL41.glUniformMatrix3fv(GL41.glGetUniformLocation(programId, name), false, value);
+    }
+    public void SetVec3(String name, float[] value){
+        GL41.glUniform3fv(GL41.glGetUniformLocation(programId, name), value);
+    }
+    public void SetMat4(String name, float[] value){
+        GL41.glUniformMatrix4fv(GL41.glGetUniformLocation(programId, name), false, value);
+    }
+    public void SetVec4(String name, float[] value){
+        GL41.glUniform4fv(GL41.glGetUniformLocation(programId, name), value);
     }
 }

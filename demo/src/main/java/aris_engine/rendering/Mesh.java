@@ -20,8 +20,8 @@ public class Mesh {
         GL41.glBufferData(GL41.GL_ELEMENT_ARRAY_BUFFER, indices, GL41.GL_STATIC_DRAW);
         GL41.glEnableVertexAttribArray(0);//pos
         GL41.glEnableVertexAttribArray(1);//uv
-        GL41.glVertexAttribLPointer(0,2,GL41.GL_DOUBLE, Double.BYTES* 4,0);
-        GL41.glVertexAttribLPointer(1,2,GL41.GL_DOUBLE,Double.BYTES* 4,Double.BYTES*2);
+        GL41.glVertexAttribLPointer(0,3,GL41.GL_DOUBLE, Double.BYTES* 5,0);
+        GL41.glVertexAttribLPointer(1,2,GL41.GL_DOUBLE,Double.BYTES* 5,Double.BYTES*3);
         //System.out.println(GL41.glGetError());
         GL41.glBindVertexArray(0);
     }
