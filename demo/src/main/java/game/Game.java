@@ -62,6 +62,15 @@ public class Game extends Engine {
             .WithComponent(new ParticleSystem())
             .EndChild()
             
+            
+            .NewChild(new Transform(
+                new Vector3f(0,3,-10),
+                new Quaternionf().rotationXYZ(0, 0, (float)Math.toRadians(60.0)),
+                new Vector3f(1)
+            ),ecsWorld.createEntity("Player"))
+            .WithMesh(Primitives.square)
+            .WithRenderer(new Renderer0())
+            .EndChild()
 
             .NewChild(new Transform(
                 new Vector3f(0,3,-10),
