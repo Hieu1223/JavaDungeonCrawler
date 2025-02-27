@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.joml.*;
 
-import aris_engine.scene.GameObject;
-
 public class Transform {
     public Quaternionf localRot = new Quaternionf().identity();
     public Vector3f localPos = new Vector3f().zero();
@@ -34,4 +32,14 @@ public class Transform {
             transformMat = newMat;
         }
     }
+    public Vector3f forward(){
+        return transformMat.transformDirection(new Vector3f(0,0,-1));
+    }
+    public Vector3f right(){
+        return transformMat.transformDirection(new Vector3f(1,0,0));
+    }
+    public Vector3f up(){
+        return transformMat.transformDirection(new Vector3f(0,1,0));
+    }
+
 }

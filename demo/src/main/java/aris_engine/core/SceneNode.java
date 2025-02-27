@@ -1,7 +1,6 @@
-package aris_engine.scene;
+package aris_engine.core;
 
 
-import aris_engine.core.Transform;
 import aris_engine.rendering.Mesh;
 import aris_engine.rendering.Renderer;
 import dev.dominion.ecs.api.Entity;
@@ -32,9 +31,10 @@ public class SceneNode {
         go.renderer = renderer;
         return this;
     }
-    public SceneNode WithComponent(Component comp){
+    public <T extends Component> SceneNode WithComponent(T comp){
         //this.go.comps.add(comp);
         this.go.components.add(comp);
+        comp.type = comp.getClass();
         comp.gameObject = this.go;
         comp.transform = go.transform;
         return this;

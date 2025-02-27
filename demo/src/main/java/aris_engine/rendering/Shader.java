@@ -73,4 +73,5 @@ public class Shader {
     public void SetVec4(String name, float[] value){
         GL41.glUniform4fv(GL41.glGetUniformLocation(programId, name), value);
     }
+    
 }

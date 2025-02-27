@@ -1,8 +1,7 @@
-package aris_engine.scene;
+package aris_engine.core;
 
-import aris_engine.core.Transform;
-
-public abstract class Component {
+public abstract class Component implements Cloneable {
+    public Class<?> type;
     public GameObject gameObject;
     public Transform transform;
     public boolean active = true;

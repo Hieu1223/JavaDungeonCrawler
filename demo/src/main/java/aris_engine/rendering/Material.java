@@ -5,8 +5,8 @@ import aris_engine.core.Transform;
 import static org.lwjgl.opengl.GL41.*;
 
 public class Material {
-    Shader shader;
-    Texture[] textures = {};
+    public Shader shader;
+    public Texture[] textures = {};
     public Material(Shader shader, Texture[] textures){
         this.shader = shader;
         this.textures = textures;
@@ -14,6 +14,10 @@ public class Material {
     }
     public void Bind(Transform transform){
         shader.Bind();
+        SetUniform(transform);
+        BindTexture();
+    }
+    public void SetUniform(Transform transform){
         float[] viewMat = new float[16];
         float[] modelMat = new float[16];
         float[] projectionMat = new float[16];
@@ -23,11 +27,12 @@ public class Material {
         shader.SetMat4("mView", viewMat);
         shader.SetMat4("mModel", modelMat);
         shader.SetMat4("mProjection", projectionMat);
+    }
+    public void BindTexture(){
         for(int i = 0 ; i < textures.length; i++){
             glActiveTexture(GL_TEXTURE0);
             textures[i].Bind();
         }
-        //System.out.println(glGetError());
     }
     public void UnBind(){
         shader.Unbind();

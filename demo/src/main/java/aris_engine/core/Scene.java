@@ -1,6 +1,5 @@
-package aris_engine.scene;
+package aris_engine.core;
 
-import aris_engine.core.Transform;
 import aris_engine.rendering.Material;
 import aris_engine.utils.DefaultShaders;
 import dev.dominion.ecs.api.Dominion;

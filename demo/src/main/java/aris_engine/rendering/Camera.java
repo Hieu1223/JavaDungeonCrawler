@@ -1,7 +1,8 @@
 package aris_engine.rendering;
 
 import org.joml.Matrix4f;
-import aris_engine.scene.Component;
+
+import aris_engine.core.Component;
 
 public class Camera extends Component{
     public static class Params{

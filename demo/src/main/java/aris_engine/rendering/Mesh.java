@@ -1,5 +1,8 @@
 package aris_engine.rendering;
 
+import java.util.ArrayList;
+
+import org.lwjgl.assimp.*;
 import org.lwjgl.opengl.GL41;
 
 
@@ -31,5 +34,29 @@ public class Mesh {
 
     public void Unbind(){
         GL41.glBindVertexArray(0);
+    }
+    public static Mesh fromFile(String path){
+        ArrayList<Double> verts = new ArrayList<>();
+        ArrayList<Integer> indices = new ArrayList<>();
+        AIScene scene = Assimp.aiImportFile(path,
+            Assimp.aiProcess_Triangulate|
+            Assimp.aiProcess_GenSmoothNormals|
+            Assimp.aiProcess_FlipUVs|
+            Assimp.aiProcess_CalcTangentSpace|
+            Assimp.aiProcess_LimitBoneWeights
+        );
+
+        
+
+
+        double[] vertsArr = new double[verts.size()];
+        for(int i = 0 ; i< verts.size(); i++){
+            vertsArr[i] = verts.get(i);
+        }
+        int[] indicesArr = new int[indices.size()];
+        for(int i = 0 ; i< indices.size(); i++){
+            indicesArr[i] = indices.get(i);
+        }
+        return new Mesh(vertsArr,indicesArr);
     }
 }
