@@ -19,6 +19,7 @@ public abstract class Engine {
     }
 
     public Engine(Params params){
+        System.setProperty("dominion.show-banner", "false");
         GLFWErrorCallback.createPrint(System.err).set();
         if ( !glfwInit() )
             throw new IllegalStateException("Unable to initialize GLFW");

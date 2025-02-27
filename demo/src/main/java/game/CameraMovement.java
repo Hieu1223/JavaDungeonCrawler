@@ -1,11 +1,6 @@
 package game;
 import static org.lwjgl.glfw.GLFW.*;
-
-
-
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
-import org.joml.Vector3fc;
 
 import aris_engine.core.Component;
 import aris_engine.input.Input;
@@ -19,7 +14,7 @@ public class CameraMovement extends Component {
 
     }
 
-    Vector3f eulerRot = new Vector3f(0,0,0);
+    Vector3f eulerRot = new Vector3f(-0.57f, 0.461f, 0f);
     @Override
     public void Update() {
         if(Input.GetKey(GLFW_KEY_UP)){
@@ -36,7 +31,7 @@ public class CameraMovement extends Component {
         }
         transform.localRot = QuatUtils.EulerToQuat(eulerRot.x, eulerRot.y, eulerRot.z);
 
-        
+
         if(Input.GetKey(GLFW_KEY_W)){
             transform.localPos.add(transform.forward().mul(moveSpeed * (float)ArisTime.deltaTime()));
         }
