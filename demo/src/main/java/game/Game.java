@@ -79,9 +79,9 @@ public class Game extends Engine {
                 ),ecsWorld.createEntity("Player1"))
                 .WithRenderer(new Renderer(new Renderer.Params()))
                 .WithMesh(Primitives.square)
-                .Up()
+                .EndChild()
             
-            .Up();
+            .EndChild();
         mainScene = Scene.fromTree(builder, ecsWorld);
         mainScene.Start();
     }
