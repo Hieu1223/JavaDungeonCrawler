@@ -31,7 +31,7 @@ public class Game extends Engine {
         .Root()
             .NewChild(new Transform(
                 new Vector3f(0,0,10),
-                new Quaternionf().rotationXYZ(0, 0, (float)Math.toRadians(60.0)),
+                new Quaternionf().rotationXYZ(0, 0, 0),
                 new Vector3f(1)
             ), ecsWorld.createEntity("Camera"))
             .WithComponent(new Camera(new Camera.Params()))

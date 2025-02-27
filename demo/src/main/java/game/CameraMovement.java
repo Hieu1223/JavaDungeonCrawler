@@ -23,8 +23,8 @@ public class CameraMovement extends Component {
             transform.localRot.rotateLocalY(-speed * (float)ArisTime.deltaTime());
         }
         if(Input.GetKey(GLFW_KEY_D)){
+            transform.localRot.rotateLocalY(speed * (float)ArisTime.deltaTime());
         }
-        transform.localRot.rotateLocalY(speed * (float)ArisTime.deltaTime());
     }
     
 }
