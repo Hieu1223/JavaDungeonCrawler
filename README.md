@@ -1,1 +1,6 @@
-Particle renderer only render 1 particle
+TODO:
++Particle system
++Import meshes
++Sprite animation
++Add Sprite
++SpriteRenderer
