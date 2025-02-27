@@ -1,2 +1,1 @@
-Bug:
-  Wrong position in scene
+Particle renderer only render 1 particle
