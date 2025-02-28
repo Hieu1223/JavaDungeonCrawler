@@ -10,7 +10,7 @@ public class Material {
     public Material(Shader shader, Texture[] textures){
         this.shader = shader;
         this.textures = textures;
-        glUniform1i(glGetUniformLocation(shader.programId, "mainTex"), 0);
+        //glUniform1i(glGetUniformLocation(shader.programId, "mainTex"), 0);
     }
     public void Bind(Transform transform){
         shader.Bind();

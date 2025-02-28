@@ -29,6 +29,8 @@ public class SceneNode {
     }
     public SceneNode WithRenderer(Renderer renderer){
         go.renderer = renderer;
+        renderer.gameObject = go;
+        renderer.transform = go.transform;
         return this;
     }
     public <T extends Component> SceneNode WithComponent(T comp){

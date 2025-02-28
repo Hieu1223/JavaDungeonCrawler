@@ -1,5 +1,6 @@
 package aris_engine.rendering;
 
+
 import java.util.ArrayList;
 
 import org.lwjgl.assimp.*;
@@ -11,6 +12,7 @@ public class Mesh {
     public int[] indices;
     public int vaoId;
     public Mesh(double[]vertices, int[] indices) {
+        //System.out.println("Mesh begin" + GL41.glGetError());
         this.vertices = vertices;
         this.indices = indices;
         int vertId = GL41.glGenBuffers();
@@ -21,12 +23,19 @@ public class Mesh {
         GL41.glBindBuffer(GL41.GL_ELEMENT_ARRAY_BUFFER, inId);
         GL41.glBufferData(GL41.GL_ARRAY_BUFFER,vertices,GL41.GL_STATIC_DRAW);
         GL41.glBufferData(GL41.GL_ELEMENT_ARRAY_BUFFER, indices, GL41.GL_STATIC_DRAW);
+        
         GL41.glEnableVertexAttribArray(0);//pos
         GL41.glEnableVertexAttribArray(1);//uv
-        GL41.glVertexAttribLPointer(0,3,GL41.GL_DOUBLE, Double.BYTES* 5,0);
-        GL41.glVertexAttribLPointer(1,2,GL41.GL_DOUBLE,Double.BYTES* 5,Double.BYTES*3);
-        //System.out.println(GL41.glGetError());
+        GL41.glEnableVertexAttribArray(2);//normal
+        
+        int stride = Double.BYTES * 8;
+        GL41.glVertexAttribLPointer(0,3,GL41.GL_DOUBLE, stride,0);
+        GL41.glVertexAttribLPointer(1,2,GL41.GL_DOUBLE,stride,Double.BYTES*3);
+        GL41.glVertexAttribLPointer(2,3,GL41.GL_DOUBLE,stride,Double.BYTES*5);
         GL41.glBindVertexArray(0);
+        
+        //System.out.println("Mesh end" + GL41.glGetError());
+        
     }
     public void Bind(){
         GL41.glBindVertexArray(vaoId);

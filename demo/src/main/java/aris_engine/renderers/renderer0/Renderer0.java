@@ -4,9 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import org.lwjgl.opengl.GL41;
 
-import aris_engine.core.Transform;
 import aris_engine.rendering.Material;
-import aris_engine.rendering.Mesh;
 import aris_engine.rendering.Renderer;
 import aris_engine.rendering.Shader;
 import aris_engine.rendering.Texture;
@@ -23,11 +21,12 @@ public class Renderer0 extends Renderer {
         }
     } 
     @Override
-    public void Render(Mesh mesh, Transform transform) {
-        mesh.Bind();
+    public void Update() {
         material.Bind(transform);
-        GL41.glDrawElements(GL_TRIANGLES,mesh.indices.length,GL_UNSIGNED_INT,0);
-        mesh.Unbind();
+        gameObject.meshFilter.Bind();
+        GL41.glDrawElements(GL_TRIANGLES,gameObject.meshFilter.indices.length,GL_UNSIGNED_INT,0);
+        //System.out.println(GL41.glGetError());
+        gameObject.meshFilter.Unbind();
         material.UnBind();
     }
 }

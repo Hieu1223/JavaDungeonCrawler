@@ -2,14 +2,12 @@ package aris_engine.rendering;
 
 import org.lwjgl.opengl.GL41;
 
-import aris_engine.core.Transform;
+import aris_engine.core.Component;
 import aris_engine.utils.DefaultShaders;
-
-import static org.lwjgl.opengl.GL41.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL41.GL_UNSIGNED_INT;
+import static org.lwjgl.opengl.GL41.*;
 
 
-public class Renderer {
+public class Renderer extends Component {
     static public class Params{
         public float nearPlane = 0.1f;
         public float farPlane = 1000;
@@ -20,12 +18,17 @@ public class Renderer {
     public Renderer(Params params) {
         data = params;
     }
-    public void Render(Mesh mesh,Transform transform) {
+    @Override
+    public void Start() {
+
+    }
+    @Override
+    public void Update() {
         data.material.Bind(transform);
-        mesh.Bind();
-        GL41.glDrawElements(GL_TRIANGLES,mesh.indices.length,GL_UNSIGNED_INT,0);
+        gameObject.meshFilter.Bind();
+        GL41.glDrawElements(GL_TRIANGLES,gameObject.meshFilter.indices.length,GL_UNSIGNED_INT,0);
         //System.out.println(GL41.glGetError());
-        mesh.Unbind();
+        gameObject.meshFilter.Unbind();
         data.material.UnBind();
     }
 }

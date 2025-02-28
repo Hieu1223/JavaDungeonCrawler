@@ -11,6 +11,7 @@ public class Shader {
     
 
     public Shader(String fragPath, String vertPath) {
+        //System.out.println("Begin Shader " +  GL41.glGetError());
         String vertSource = FileUtils.readFile(vertPath);
         String fragSource = FileUtils.readFile(fragPath);
         int vertId = createShader(vertSource,GL41.GL_VERTEX_SHADER);
@@ -26,6 +27,8 @@ public class Shader {
         }
         GL41.glDeleteShader(vertId);
         GL41.glDeleteShader(fragId);
+        
+        //System.out.println("End shader " +  GL41.glGetError());
 
     }
     int createShader(String source, int type) {

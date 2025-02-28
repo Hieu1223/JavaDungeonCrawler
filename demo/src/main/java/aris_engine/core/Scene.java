@@ -33,7 +33,7 @@ public class Scene {
     void RenderSceneHelper(Transform node){
         for(Transform child: node.children){
             if(child.gameObject.renderer != null)
-                child.gameObject.renderer.Render(child.gameObject.meshFilter, child);
+                child.gameObject.renderer.Update();
             RenderSceneHelper(child);
         }
     }
