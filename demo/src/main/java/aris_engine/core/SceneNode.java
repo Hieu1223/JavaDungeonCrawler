@@ -34,7 +34,7 @@ public class SceneNode {
         return this;
     }
     public <T extends Component> SceneNode WithComponent(T comp){
-        //this.go.comps.add(comp);
+        this.go.comps.add(comp);
         this.go.components.add(comp);
         comp.type = comp.getClass();
         comp.gameObject = this.go;

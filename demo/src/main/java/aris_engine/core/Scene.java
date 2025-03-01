@@ -1,7 +1,4 @@
 package aris_engine.core;
-
-import aris_engine.rendering.Material;
-import aris_engine.utils.DefaultShaders;
 import dev.dominion.ecs.api.Dominion;
 
 public class Scene {
@@ -26,10 +23,6 @@ public class Scene {
     public void Update(){
         UpdateHelper(root);
     }
-    public void RenderScene(){
-        RenderSceneHelper(root);
-    }
-
     void RenderSceneHelper(Transform node){
         for(Transform child: node.children){
             if(child.gameObject.renderer != null)

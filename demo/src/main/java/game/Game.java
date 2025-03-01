@@ -8,17 +8,15 @@ import aris_engine.Engine;
 import aris_engine.core.Scene;
 import aris_engine.core.SceneNode;
 import aris_engine.core.Transform;
-import aris_engine.modules.particle_system.ParticelMaterial;
-import aris_engine.modules.particle_system.ParticleRenderer;
-import aris_engine.modules.particle_system.ParticleSystem;
+import aris_engine.modules.particle_system.*;
+import aris_engine.renderers.defered_renderer.*;
 import aris_engine.renderers.renderer0.Renderer0;
-import aris_engine.rendering.Camera;
-import aris_engine.rendering.Renderer;
-import aris_engine.utils.Primitives;
-import aris_engine.utils.QuatUtils;
+import aris_engine.rendering.*;
+import aris_engine.utils.*;
 import dev.dominion.ecs.api.Dominion;
 public class Game extends Engine {
     Scene mainScene;
+    RenderingPipeline renderPipeline;
     public Game() {
         super(new Params());
     }
@@ -81,14 +79,20 @@ public class Game extends Engine {
             
             .EndChild();
         mainScene = Scene.fromTree(builder, ecsWorld);
-        
+        renderPipeline =  RenderingPipeline
+            .Builder(mainScene)
+            .AddStage(new ObjectPass())
+            //.AddStage(new ShadowPass(512,512))
+            //.AddStage(new LightingPass())
+            .AddStage(new AssemblePass())
+            ;
         mainScene.Start();
+        renderPipeline.Init();
     }
     @Override
     public void Update() {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         mainScene.Update();
-        mainScene.RenderScene();
+        renderPipeline.Execute();
     }
 
 }

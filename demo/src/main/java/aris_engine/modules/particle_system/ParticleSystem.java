@@ -8,7 +8,7 @@ import aris_engine.core.Transform;
 
 public class ParticleSystem extends Component {
     ParticleRenderer partRenderer;
-    public int particleCount = 100;
+    public int particleCount = 10000;
     public Vector3f volume = new Vector3f(400);
     @Override
     public void Start() {
@@ -21,7 +21,7 @@ public class ParticleSystem extends Component {
         for(int i = 0 ; i< particleCount; i++){
             Transform temp = new Transform();
             temp.localScale = new Vector3f(0.5f + randomGen.nextFloat());
-            temp.localPos = new Vector3f(randomGen.nextFloat() * volume.x, randomGen.nextFloat() * volume.y,randomGen.nextFloat() * volume.z);
+            temp.localPos = new Vector3f(randomGen.nextFloat() * volume.x - volume.x/2, randomGen.nextFloat() * volume.y-volume.y/2,randomGen.nextFloat() * volume.z-volume.z/2);
             temp.localRot = new Quaternionf().rotateXYZ(randomGen.nextFloat() * 3.14f, randomGen.nextFloat() * 3.14f,randomGen.nextFloat() * 3.14f);
             temp.Update();
             temp.transformMat.get(data);

@@ -30,8 +30,7 @@ public class Material {
     }
     public void BindTexture(){
         for(int i = 0 ; i < textures.length; i++){
-            glActiveTexture(GL_TEXTURE0);
-            textures[i].Bind();
+            textures[i].Bind(i);
         }
     }
     public void UnBind(){

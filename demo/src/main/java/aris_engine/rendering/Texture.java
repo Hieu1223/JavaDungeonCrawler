@@ -1,5 +1,6 @@
 package aris_engine.rendering;
 import org.lwjgl.stb.*;
+
 import static org.lwjgl.opengl.GL41.*;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -27,7 +28,8 @@ public class Texture {
         glGenerateMipmap(GL_TEXTURE_2D);
         STBImage.stbi_image_free(image);
     }
-    public void Bind(){
+    public void Bind(int slot){
+        glActiveTexture(GL_TEXTURE0 + slot);
         glBindTexture(GL_TEXTURE_2D, texID);
     }
     public void Unbind(){

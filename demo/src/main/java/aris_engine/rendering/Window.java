@@ -20,7 +20,7 @@ public class Window {
     public Queue<Event> eventQueue = new LinkedList<Event>();
 
     public long window;
-    int height = 0, width = 0;
+    public int height = 0, width = 0;
     public Window(int height, int width){
         this.height = height;
         this.width = width;

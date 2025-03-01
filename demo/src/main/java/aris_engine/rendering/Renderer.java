@@ -31,4 +31,11 @@ public class Renderer extends Component {
         gameObject.meshFilter.Unbind();
         data.material.UnBind();
     }
+    public static void DrawSimple(Shader shader, Mesh mesh){
+        shader.Bind();
+        mesh.Bind();
+        GL41.glDrawElements(GL_TRIANGLES,mesh.indices.length,GL_UNSIGNED_INT,0);
+        mesh.Unbind(); 
+        shader.Unbind();       
+    }
 }
