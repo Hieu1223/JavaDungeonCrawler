@@ -10,6 +10,7 @@ public class Transform {
     public Vector3f localPos = new Vector3f().zero();
     public Vector3f localScale= new Vector3f(1,1,1);
     public Matrix4f transformMat = new Matrix4f().identity();
+    public float[] transforMatArr = new float[16];
     public Transform parent;
     public GameObject gameObject;
     public List<Transform> children = new LinkedList<Transform>();
@@ -31,6 +32,8 @@ public class Transform {
             parent.transformMat.mul(transformMat, newMat);
             transformMat = newMat;
         }
+        if(gameObject.renderer != null)
+            transformMat.get(transforMatArr);
     }
     public Vector3f forward(){
         return transformMat.transformDirection(new Vector3f(0,0,-1));

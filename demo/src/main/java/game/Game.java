@@ -8,7 +8,6 @@ import aris_engine.Engine;
 import aris_engine.core.Scene;
 import aris_engine.core.SceneNode;
 import aris_engine.core.Transform;
-import aris_engine.modules.particle_system.*;
 import aris_engine.renderers.defered_renderer.*;
 import aris_engine.renderers.renderer0.Renderer0;
 import aris_engine.rendering.*;
@@ -44,19 +43,28 @@ public class Game extends Engine {
                 new Vector3f(100)
             ), ecsWorld.createEntity("Plane"))
             .WithMesh(Primitives.square)
-            .WithRenderer(new Renderer(new Renderer.Params()))
+            .WithRenderer(new Renderer(new Renderer.Params().WithMaterial(DefaultShaders.defaultDefererdMaterial)))
             .EndChild()
 
+            .NewChild(new Transform(
+                new Vector3f(0,0,0),
+                QuatUtils.EulerToQuat((float)Math.toRadians(90), 0f, 0f),
+                new Vector3f(100)
+            ), ecsWorld.createEntity("Light"))
+            .WithComponent(new Light())
+            .EndChild()
+
+/*
             .NewChild(new Transform(
                 new Vector3f(0,0,0),
                 QuatUtils.EulerToQuat(0f, 0f, 0f),
                 new Vector3f(1)
             ), ecsWorld.createEntity("ParticleSystem"))
-            .WithMesh(Primitives.square)
+            .WithMesh(Primitives.cube)
             .WithRenderer(new ParticleRenderer(new ParticelMaterial()))
             .WithComponent(new ParticleSystem())
             .EndChild()
-
+ */
             
 
             .NewChild(new Transform(
@@ -65,7 +73,7 @@ public class Game extends Engine {
                 new Vector3f(1)
             ),ecsWorld.createEntity("Player"))
             .WithComponent(new PlayerMovement())
-            .WithRenderer(new Renderer0())
+            .WithRenderer(new Renderer(new Renderer.Params().WithMaterial(DefaultShaders.defaultDefererdMaterial)))
             .WithMesh(Primitives.square)
 
                 .NewChild(new Transform(
@@ -73,26 +81,20 @@ public class Game extends Engine {
                     new Quaternionf().rotationXYZ(0, 0, (float)Math.toRadians(60.0)),
                     new Vector3f(1)
                 ),ecsWorld.createEntity("Player1"))
-                .WithRenderer(new Renderer(new Renderer.Params()))
-                .WithMesh(Primitives.square)
+                .WithRenderer(new Renderer(new Renderer.Params().WithMaterial(DefaultShaders.defaultDefererdMaterial)))
+                .WithMesh(Primitives.cube)
                 .EndChild()
             
             .EndChild();
         mainScene = Scene.fromTree(builder, ecsWorld);
-        renderPipeline =  RenderingPipeline
-            .Builder(mainScene)
-            .AddStage(new ObjectPass())
-            //.AddStage(new ShadowPass(512,512))
-            //.AddStage(new LightingPass())
-            .AddStage(new AssemblePass())
-            ;
+        renderPipeline =  new DeferedRenderingPipeline();
         mainScene.Start();
         renderPipeline.Init();
     }
     @Override
     public void Update() {
         mainScene.Update();
-        renderPipeline.Execute();
+        renderPipeline.Execute(mainScene.GetRenderContext());
     }
 
 }

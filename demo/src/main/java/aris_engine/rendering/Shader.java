@@ -45,6 +45,7 @@ public class Shader {
     }
     public void Bind(){
         GL41.glUseProgram(programId);
+        
     }
     public void Unbind(){
         GL41.glUseProgram(0);

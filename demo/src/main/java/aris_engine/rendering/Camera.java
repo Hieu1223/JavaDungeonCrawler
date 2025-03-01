@@ -17,6 +17,8 @@ public class Camera extends Component{
     public static Camera main;
     public Matrix4f projectionMat;
     public Matrix4f viewMat;
+    public float[] projectionMatArr = new float[16];
+    public float[] viewMatArr = new float[16];
     public Camera(Params params){
         projectionMat = new Matrix4f().perspective((float)Math.toRadians(params.fov), params.aspect, params.zNear, params.zFar);      
         if(main == null)
@@ -30,9 +32,12 @@ public class Camera extends Component{
     @Override
     public void Start() {
         viewMat = new Matrix4f().invert(transform.transformMat);
+        viewMat.get(viewMatArr);
+        projectionMat.get(projectionMatArr);
     }
     @Override
     public void Update() {
         viewMat = new Matrix4f(transform.transformMat).invert();
+        viewMat.get(viewMatArr);
     }
 }

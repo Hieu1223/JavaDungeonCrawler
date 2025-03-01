@@ -13,6 +13,10 @@ public class Renderer extends Component {
         public float farPlane = 1000;
         public float fov = 60;
         public Material material = DefaultShaders.defaultMaterial;
+        public Params WithMaterial(Material material){
+            this.material = material;
+            return this;
+        }
     }
     Params data ;
     public Renderer(Params params) {
@@ -38,4 +42,5 @@ public class Renderer extends Component {
         mesh.Unbind(); 
         shader.Unbind();       
     }
+    
 }

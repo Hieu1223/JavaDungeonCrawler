@@ -12,16 +12,7 @@ public class RenderTexture {
     public int fboID;
     public int textureID;
     public int rboID;
-    public RenderTexture(int height, int width, Params params){
-        fboID = glGenFramebuffers();
-        glBindFramebuffer(GL_FRAMEBUFFER, fboID);
-        textureID = glGenTextures();
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        float[] empty = null;
-        glTexImage2D(GL_TEXTURE_2D, 0,params.glFormat, width, height, 0,params.glFormat, params.dataType,empty);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);  
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureID, 0); 
+    public RenderTexture(int height, int width, Params params){ 
         if(params.withDepthAndStencil){
             rboID = glGenRenderbuffers();
             glBindRenderbuffer(GL_RENDERBUFFER, rboID); 
@@ -33,6 +24,17 @@ public class RenderTexture {
 	        System.err.println("ERROR::FRAMEBUFFER:: Framebuffer is not complete!");  
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         glBindTexture(GL_TEXTURE_2D,0);
+    }
+    public RenderTexture withTexture(int width, int height, Params params){
+        glBindFramebuffer(GL_FRAMEBUFFER, fboID);
+        textureID = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        float[] empty = null;
+        glTexImage2D(GL_TEXTURE_2D, 0,params.glFormat, width, height, 0,params.glFormat, params.dataType,empty);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);  
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureID, 0);
+        return this;
     }
     public void BindFrameBuffer(){
         glBindFramebuffer(GL_FRAMEBUFFER, fboID);

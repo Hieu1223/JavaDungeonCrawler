@@ -18,15 +18,9 @@ public class Material {
         BindTexture();
     }
     public void SetUniform(Transform transform){
-        float[] viewMat = new float[16];
-        float[] modelMat = new float[16];
-        float[] projectionMat = new float[16];
-        transform.transformMat.get(modelMat);
-        Camera.main.projectionMat.get(projectionMat);
-        Camera.main.viewMat.get(viewMat);
-        shader.SetMat4("mView", viewMat);
-        shader.SetMat4("mModel", modelMat);
-        shader.SetMat4("mProjection", projectionMat);
+        shader.SetMat4("mView", Camera.main.viewMatArr);
+        shader.SetMat4("mModel", transform.transforMatArr);
+        shader.SetMat4("mProjection", Camera.main.projectionMatArr);
     }
     public void BindTexture(){
         for(int i = 0 ; i < textures.length; i++){
