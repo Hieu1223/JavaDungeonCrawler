@@ -1,9 +1,7 @@
 package aris_engine;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL41.*;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;

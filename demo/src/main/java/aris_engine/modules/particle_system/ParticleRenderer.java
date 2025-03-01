@@ -1,7 +1,6 @@
 package aris_engine.modules.particle_system;
 
 import static org.lwjgl.opengl.GL41.*;
-
 import org.lwjgl.opengl.GL41;
 
 import aris_engine.rendering.Material;
@@ -15,30 +14,45 @@ public class ParticleRenderer extends Renderer {
     public ParticleRenderer(Material material) {
         super(new Renderer.Params());
         this.material = material;
-        //TODO : implement particle renderer
-        throw new UnsupportedOperationException();
     }
-    public void SetUpParticleData(float[] transformMatrices){
-        instanceVBO = glGenBuffers();
-        glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);   
-        glBufferData(instanceVBO,transformMatrices,GL41.GL_STATIC_DRAW);
+    int CreateEmptyVBO(int floatCount,float[] data){
+        int vbo = GL41.glGenBuffers();
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, data, GL_STREAM_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        return vbo;
+    }
 
-        //GL41.glBindVertexArray(transform.gameObject.meshFilter.vaoId);
-        GL41.glEnableVertexAttribArray(3);
-        GL41.glVertexAttribPointer(3, 1, GL_FLOAT, false, Float.BYTES, 0);
-        GL41.glVertexAttribDivisor(3, 10);
-        //gameObject.meshFilter.Unbind();
-        particleCount = transformMatrices.length;throw new UnsupportedOperationException();
+    void AddInstanceAttribute(int vao, int vbo, int attribute, int dataSize,int instanceDataLength, int floatOffset){
+        GL41.glBindVertexArray(vao);
+        glEnableVertexAttribArray(attribute);
+        GL41.glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        GL41.glVertexAttribPointer(attribute, dataSize,GL_FLOAT,false, instanceDataLength*4, floatOffset*4);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        GL41.glVertexAttribDivisor(attribute, 1);
+        glBindVertexArray(0);
+    }
+
+
+    public void SetUpParticleData(float[] transformMatrices){
+        
+        instanceVBO = CreateEmptyVBO(10, transformMatrices);
+        AddInstanceAttribute(gameObject.meshFilter.vaoId, instanceVBO, 3, 4, 16, 0);
+        AddInstanceAttribute(gameObject.meshFilter.vaoId, instanceVBO, 4, 4, 16, 4);
+        AddInstanceAttribute(gameObject.meshFilter.vaoId, instanceVBO, 5, 4, 16, 8);
+        AddInstanceAttribute(gameObject.meshFilter.vaoId, instanceVBO, 6, 4, 16, 12);
+        particleCount = transformMatrices.length;
     }
 
     @Override
     public void Update() {
         material.Bind(transform);
         glBindVertexArray(gameObject.meshFilter.vaoId);
-        GL41.glDrawElementsInstanced(GL_TRIANGLES, gameObject.meshFilter.indices.length, GL_UNSIGNED_INT,0L,particleCount*1000);
-        //System.out.println(GL41.glGetError());
+        glBindBuffer(GL_ARRAY_BUFFER, instanceVBO); 
+        GL41.glDrawElementsInstanced(GL_TRIANGLES,gameObject.meshFilter.indices.length,GL_UNSIGNED_INT,0L,particleCount);
         glBindVertexArray(0);
-        material.UnBind();   throw new UnsupportedOperationException();
+        material.UnBind();  
+        //throw new UnsupportedOperationException();
     }
     
 }

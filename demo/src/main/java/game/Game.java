@@ -49,6 +49,17 @@ public class Game extends Engine {
             .WithRenderer(new Renderer(new Renderer.Params()))
             .EndChild()
 
+            .NewChild(new Transform(
+                new Vector3f(0,0,0),
+                QuatUtils.EulerToQuat(0f, 0f, 0f),
+                new Vector3f(1)
+            ), ecsWorld.createEntity("ParticleSystem"))
+            .WithMesh(Primitives.square)
+            .WithRenderer(new ParticleRenderer(new ParticelMaterial()))
+            .WithComponent(new ParticleSystem())
+            .EndChild()
+
+            
 
             .NewChild(new Transform(
                 new Vector3f(0,3,-10),
