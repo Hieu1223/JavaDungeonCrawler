@@ -19,12 +19,14 @@ public class ParticleSystem extends Component {
         Random randomGen =  new Random();
         float[] data = new float[16];
         for(int i = 0 ; i< particleCount; i++){
-            Transform temp = new Transform();
-            temp.localScale = new Vector3f(0.5f + randomGen.nextFloat());
-            temp.localPos = new Vector3f(randomGen.nextFloat() * volume.x - volume.x/2, randomGen.nextFloat() * volume.y-volume.y/2,randomGen.nextFloat() * volume.z-volume.z/2);
-            temp.localRot = new Quaternionf().rotateXYZ(randomGen.nextFloat() * 3.14f, randomGen.nextFloat() * 3.14f,randomGen.nextFloat() * 3.14f);
-            temp.Update();
-            temp.transformMat.get(data);
+            Vector3f localScale = new Vector3f(0.5f + randomGen.nextFloat());
+            Vector3f localPos = new Vector3f(randomGen.nextFloat() * volume.x - volume.x/2, randomGen.nextFloat() * volume.y-volume.y/2,randomGen.nextFloat() * volume.z-volume.z/2);
+            Quaternionf localRot = new Quaternionf().rotateXYZ(randomGen.nextFloat() * 3.14f, randomGen.nextFloat() * 3.14f,randomGen.nextFloat() * 3.14f);
+            Matrix4f transformMat = new Matrix4f().identity();
+            transformMat = transformMat.translate(localPos);
+            transformMat =  transformMat.rotate(localRot);
+            transformMat = transformMat.scale(localScale);
+            transformMat.get(data);
             for(float item : data){
                 matricesData[currentCount] = item;
                 currentCount++;

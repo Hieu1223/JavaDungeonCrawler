@@ -7,8 +7,8 @@ import aris_engine.input.Input;
 import aris_engine.utils.ArisTime;
 
 public class PlayerMovement extends Component {
-    public float speed = 10f;
-    public float rotSpeed = 50f;
+    public float speed = 5f;
+    public float rotSpeed = 10f;
     @Override
     public void Start() {
     }

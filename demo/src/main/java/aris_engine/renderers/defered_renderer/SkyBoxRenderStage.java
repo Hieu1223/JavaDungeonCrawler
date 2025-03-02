@@ -19,6 +19,9 @@ public class SkyBoxRenderStage {
         String folder =  MyPath.folderPath + "\\assets\\shader\\";
         skyBox = new CubeMap(DefaultShaders.defaultImage);
         skyBoxShader = new Shader(folder + "skybox.frag", folder + "skybox.vert");
+        skyBoxShader.Bind();
+        skyBoxShader.SetInt("skybox", 0);
+        skyBoxShader.Unbind();
     }
     public void Execute(Scene.RenderContext renderContext){
         float[] viewMat = new float[16];
@@ -28,11 +31,11 @@ public class SkyBoxRenderStage {
                 viewMat[4*i+k] = Camera.main.viewMat.get(i,k);
             }
         }
-
+        glDepthFunc(GL_LEQUAL);
         skyBoxShader.Bind();
         Primitives.cube.Bind();
         skyBox.Bind();
-
+        
         skyBoxShader.SetMat4("mView",viewMat);
         skyBoxShader.SetMat4("mProjection",Camera.main.projectionMatArr);
         
@@ -42,5 +45,6 @@ public class SkyBoxRenderStage {
         Primitives.cube.Unbind();
         skyBoxShader.Unbind();
         skyBox.Unbind();
+        glDepthFunc(GL_LESS);
     }
 }

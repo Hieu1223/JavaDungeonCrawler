@@ -1,7 +1,7 @@
 #version 410
-layout(location = 0) out vec4 albedo;
-layout(location = 1) out vec4 pos;
-layout(location = 2) out vec4 normal;
+layout(location = 0) out vec4 pos;
+layout(location = 1) out vec4 normal;
+layout(location = 2) out vec4 albedo;
 
 uniform sampler2D mainTex;
 

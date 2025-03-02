@@ -1,6 +1,5 @@
 package aris_engine.rendering;
 
-
 import static org.lwjgl.opengl.GL41.*;
 
 import aris_engine.utils.FileUtils.ImageAsset;
@@ -10,7 +9,6 @@ public class CubeMap extends Texture {
     public CubeMap(ImageAsset image) {
         this.texID = glGenTextures();
         glBindTexture(GL_TEXTURE_CUBE_MAP, texID);
-        int sideLength = image.width < image.height? image.width : image.height;
         for(int i = 0; i< 6; i++){
             glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 
                          0, GL_RGB, image.width, image.width, 0, GL_RGB, GL_UNSIGNED_BYTE, image.data
@@ -25,6 +23,7 @@ public class CubeMap extends Texture {
         System.out.println(glGetError());
     }
     public void Bind(){
+       glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_CUBE_MAP, texID);   
     }
     @Override

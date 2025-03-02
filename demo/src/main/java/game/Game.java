@@ -8,8 +8,10 @@ import aris_engine.Engine;
 import aris_engine.core.Scene;
 import aris_engine.core.SceneNode;
 import aris_engine.core.Transform;
+import aris_engine.modules.particle_system.ParticelMaterial;
+import aris_engine.modules.particle_system.ParticleRenderer;
+import aris_engine.modules.particle_system.ParticleSystem;
 import aris_engine.renderers.defered_renderer.*;
-import aris_engine.renderers.renderer0.Renderer0;
 import aris_engine.rendering.*;
 import aris_engine.utils.*;
 import dev.dominion.ecs.api.Dominion;
@@ -25,7 +27,7 @@ public class Game extends Engine {
         glClearColor(0.2f, 0.7f, 0.4f, 1f);
 
         Dominion ecsWorld = Dominion.create("World");
-        //System.out.println("begin scene " +GL41.glGetError());
+
         SceneNode builder = SceneNode
         .Root()
             .NewChild(new Transform(
@@ -38,8 +40,8 @@ public class Game extends Engine {
             .EndChild()
 
             .NewChild(new Transform(
-                new Vector3f(0,-50,0),
-                QuatUtils.EulerToQuat((float)Math.toRadians(90), 0f, 0f),
+                new Vector3f(0,0,0),
+                QuatUtils.EulerToQuat((float)Math.toRadians(-90), 0f, 0f),
                 new Vector3f(100)
             ), ecsWorld.createEntity("Plane"))
             .WithMesh(Primitives.square)
@@ -47,13 +49,55 @@ public class Game extends Engine {
             .EndChild()
 
             .NewChild(new Transform(
-                new Vector3f(0,0,0),
-                QuatUtils.EulerToQuat((float)Math.toRadians(90), 0f, 0f),
-                new Vector3f(100)
+                new Vector3f(0,4,0),
+                QuatUtils.EulerToQuat((float)Math.toRadians(-90), 0f, 0f),
+                new Vector3f(1)
             ), ecsWorld.createEntity("Light"))
             .WithComponent(new Light())
+            .WithMesh(Primitives.square)
+            .WithRenderer(new Renderer(new Renderer.Params().WithMaterial(DefaultShaders.defaultDefererdMaterial)))
             .EndChild()
 
+            .NewChild(new Transform(
+                new Vector3f(30,7,0),
+                QuatUtils.EulerToQuat((float)Math.toRadians(-90), 0f, 0f),
+                new Vector3f(1)
+            ), ecsWorld.createEntity("Light"))
+            .WithComponent(new Light())
+            .WithMesh(Primitives.square)
+            .WithRenderer(new Renderer(new Renderer.Params().WithMaterial(DefaultShaders.defaultDefererdMaterial)))
+            .EndChild()
+
+            .NewChild(new Transform(
+                new Vector3f(100,5,20),
+                QuatUtils.EulerToQuat((float)Math.toRadians(-90), 0f, 0f),
+                new Vector3f(1)
+            ), ecsWorld.createEntity("Light"))
+            .WithComponent(new Light())
+            .WithMesh(Primitives.square)
+            .WithRenderer(new Renderer(new Renderer.Params().WithMaterial(DefaultShaders.defaultDefererdMaterial)))
+            .EndChild()
+
+            .NewChild(new Transform(
+                new Vector3f(1,4,6),
+                QuatUtils.EulerToQuat((float)Math.toRadians(-90), 0f, 0f),
+                new Vector3f(1)
+            ), ecsWorld.createEntity("Light"))
+            .WithComponent(new Light())
+            .WithMesh(Primitives.square)
+            .WithRenderer(new Renderer(new Renderer.Params().WithMaterial(DefaultShaders.defaultDefererdMaterial)))
+            .EndChild()
+
+
+            .NewChild(new Transform(
+                new Vector3f(20,5,30),
+                QuatUtils.EulerToQuat((float)Math.toRadians(-90), 0f, 0f),
+                new Vector3f(1)
+            ), ecsWorld.createEntity("Light"))
+            .WithComponent(new Light())
+            .WithMesh(Primitives.square)
+            .WithRenderer(new Renderer(new Renderer.Params().WithMaterial(DefaultShaders.defaultDefererdMaterial)))
+            .EndChild()
 /*
             .NewChild(new Transform(
                 new Vector3f(0,0,0),
@@ -64,8 +108,7 @@ public class Game extends Engine {
             .WithRenderer(new ParticleRenderer(new ParticelMaterial()))
             .WithComponent(new ParticleSystem())
             .EndChild()
- */
-            
+ */          
 
             .NewChild(new Transform(
                 new Vector3f(0,3,-10),

@@ -13,9 +13,9 @@ out vec2 texCoord;
 
 void main()
 {
-    vec4 pos = mProjection *mView* mModel * vec4(aPos, 1.0);
-    vertPos = aPos;
-    vertNormal = aNormal;
+    vec4 worlPosition = mModel * vec4(aPos, 1.0);
+    vertPos = worlPosition.xyz;
+    vertNormal =normalize((mModel * vec4(aNormal,0)).xyz);
     texCoord = aUV;
-    gl_Position = pos;
+    gl_Position = mProjection *mView* worlPosition;
 }
