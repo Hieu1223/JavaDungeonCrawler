@@ -1,15 +1,6 @@
 package aris_engine.renderers.defered_renderer;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_NEAREST;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearColor;
-import static org.lwjgl.opengl.GL30.GL_DRAW_FRAMEBUFFER;
-import static org.lwjgl.opengl.GL30.GL_FRAMEBUFFER;
-import static org.lwjgl.opengl.GL30.GL_READ_FRAMEBUFFER;
-import static org.lwjgl.opengl.GL30.glBindFramebuffer;
-import static org.lwjgl.opengl.GL30.glBlitFramebuffer;
+
 import static org.lwjgl.opengl.GL41.*;
 import aris_engine.core.Scene.RenderContext;
 import aris_engine.rendering.RenderBuffer;
@@ -55,7 +46,7 @@ public class DeferedRenderingPipeline implements RenderingPipeline {
             0, 0, SCR_WIDTH, SCR_HEIGHT, 0, 0, SCR_WIDTH, SCR_HEIGHT, GL_DEPTH_BUFFER_BIT, GL_NEAREST
         );
 
-
+        
 
 
         skyBoxRender.Execute(renderContext);
