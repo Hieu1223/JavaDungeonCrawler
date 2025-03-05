@@ -15,5 +15,4 @@ public class ComputeShader extends Shader {
         glAttachShader(programId,computeShaderID);
         glLinkProgram(programId);
     }
-    
 }

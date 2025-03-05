@@ -6,7 +6,7 @@ import static org.lwjgl.opengl.GL46.*;
 import aris_engine.utils.FileUtils;
 
 public class Shader {
-    public int programId;
+    protected int programId;
 
     protected Shader(){}
 
@@ -38,7 +38,8 @@ public class Shader {
         int[] success = {0};
         glGetShaderiv(id, GL_COMPILE_STATUS, success);
         if (success[0] == 0) {
-            System.out.println("Shader Compile Error: " + glGetProgramInfoLog(id));
+            String err =  glGetProgramInfoLog(id);
+            System.out.println("Shader Compile Error: " + err);
         }
 
         return id;

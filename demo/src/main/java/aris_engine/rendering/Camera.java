@@ -19,12 +19,14 @@ public class Camera extends Component{
     public Matrix4f viewMat;
     public float[] projectionMatArr = new float[16];
     public float[] viewMatArr = new float[16];
+    Params params;
     public Camera(Params params){
         projectionMat = new Matrix4f().perspective((float)Math.toRadians(params.fov), params.aspect, params.zNear, params.zFar);      
         if(main == null)
             main = this; 
         else
             throw new Error("More than one Camera instance");
+        this.params = params;
     }
     public void SetMain(){
         main = this;
